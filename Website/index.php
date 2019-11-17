@@ -1,8 +1,12 @@
 <?php
 
-include "config/config.php";
+include "./config/config.php";
 
 if (!$CONFIG["installed"])
 {
-    header("Location: installer")
+    header("Location: installer");
+}
+
+if ($CONFIG["occupied"]){
+    header("Location: occupied.html");
 }
