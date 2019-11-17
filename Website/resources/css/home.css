@@ -1,0 +1,21 @@
+
+.title{
+    color: green;
+}
+
+.wrappwer {
+    display: grid;
+    grid-template-columns: 1 fr;
+    grid-template-rows: auto;
+}
+
+.nav {
+    display: grid;
+    grid-gap: 10 px;
+    text-align:  left;
+    width: fit-content;
+}
+
+.head_button {
+    grid-row:1;
+}
