@@ -131,40 +131,56 @@ if(isset($_POST["install"])){
         die();
     }
 
-    $CONFIG = array(
-        'db_database'   => "$db_name",
-        'db_prefix'     => "$db_prefix",
-        'db_user'       => "$db_username",
-        'db_password'   => "$db_password",
-        'db_address'    => "$db_server",
-        'db_port'       => "$db_port",
-        'installed' => true,
-        'occupied' => false,
-    );
-
     $config="<?php
-    \$CONFIG = array(
-        'db_database'   => \"$db_name\",
-        'db_prefix'     => \"$db_prefix\",
-        'db_user'       => \"$db_username\",
-        'db_password'   => \"$db_password\",
-        'db_address'    => \"$db_server\",
-        'db_port'       => \"$db_port\",
-        'installed' => true,
-        'occupied' => false,
-    );";
+    class CONFIG {
+        public static \$db_database   = \"$db_name\";
+        public static \$db_prefix     = \"$db_prefix\";
+        public static \$db_user       = \"$db_username\";
+        public static \$db_password   = \"$db_password\";
+        public static \$db_address    = \"$db_server\";
+        public static \$db_port       = \"$db_port\";
+        public static \$installed     = true;
+        public static \$occupied      = false;
+    }";
+
+    $free=="<?php
+    class CONFIG {
+        public static \$db_database   = \" \";
+        public static \$db_prefix     = \" \";
+        public static \$db_user       = \" \";
+        public static \$db_password   = \" \";
+        public static \$db_address    = \" \";
+        public static \$db_port       = \" \";
+        public static \$installed     = false;
+        public static \$occupied      = false;
+    }";
 
     $occupied="<?php
-    \$CONFIG = array(
-        'installed' => false,
-        'occupied' => true,
-    );";
+    class CONFIG {
+        public static \$db_database   = \" \";
+        public static \$db_prefix     = \" \";
+        public static \$db_user       = \" \";
+        public static \$db_password   = \" \";
+        public static \$db_address    = \" \";
+        public static \$db_port       = \" \";
+        public static \$installed     = false;
+        public static \$occupied      = true;
+    }";
 
     include_once "../lib/SQL/MySQL.php";
+    
     //echo "" . $CONFIG["db_address"] . ", " . $CONFIG["db_user"] . ", " . $CONFIG["db_password"] . ", " . $CONFIG["db_database"] . ", " . $CONFIG["db_port"];
+    unlink("../config/config.php") or header("/installer/?error=could not delete file, check your permissions");
+    $f = fopen("../config/config.php", 'w') or header("/installer/?error=could not create file, check your permissions");
+    fwrite($f, $config);
+    fclose($f);
     try {
-        $conn = new MySQL($CONFIG);
+        $conn = new MySQL();
     }catch (Exception $e){
+        unlink("../config/config.php") or header("/installer/?error=could not delete file, check your permissions");
+        $f = fopen("../config/config.php", 'w') or header("/installer/?error=could not create file, check your permissions");
+        fwrite($f, $free);
+        fclose($f);
         header("Location: /installer/?error='" . $e->getMessage() . "'");
         die();
     }
@@ -198,10 +214,16 @@ function query(MySQL $con, $query, $db_prefix){
     if(!$con->query(str_replace("fcl_", $db_prefix, $query)) === true){
         header("Location: /installer/?error=Error running query: '" . $query . "'");
         $occupied="<?php
-        \$CONFIG = array(
-            'installed' => false,
-            'occupied' => false,
-        );";
+        class CONFIG {
+            public static \$db_database   = \" \";
+            public static \$db_prefix     = \" \";
+            public static \$db_user       = \" \";
+            public static \$db_password   = \" \";
+            public static \$db_address    = \" \";
+            public static \$db_port       = \" \";
+            public static \$installed     = false;
+            public static \$occupied      = false;
+        }";
         unlink("../config/config.php") or header("/installer/?error=could not delete file, check your permissions");
         $f = fopen("../config/config.php", 'w') or header("/installer/?error=could not create file, check your permissions");
         fwrite($f, $occupied);
@@ -212,8 +234,8 @@ function query(MySQL $con, $query, $db_prefix){
 
 include "../config/config.php";
 
-if ($CONFIG["installed"]) header("Location: /index.php" && !isset($_GET["error"]));
+if (CONFIG::$installed) header("Location: /index.php" && !isset($_GET["error"]));
 
-if ($CONFIG["occupied"]) header("Location: /index.php" && !isset($_GET["error"]));
+if (CONFIG::$occupied) header("Location: /index.php" && !isset($_GET["error"]));
 
 ?>

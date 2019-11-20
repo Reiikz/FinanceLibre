@@ -1,0 +1,38 @@
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <link rel='stylesheet' type='text/css' href='/resources/css/login.css'/>
+
+        <title>Finance Libre - Login</title>
+
+    </head>
+
+    <body>
+
+        <div class='wrapper'>
+            <form action='actions/login.php' method='POST'>
+                <div class='inwrapper'>
+                    <div>
+                        <input type='text' placeholder='username' name='username' id='username' value='%%USERNAME%%'/>
+                    </div>
+                    <div>
+                        <input type='password' placeholder='password' name='password' id='password'/>
+                    </div>
+                    <div>
+                        <input type='submit' value='Login' id='send'/>
+                    </div>
+                    <div class='error'>
+                        %%ERROR%%
+                    </div>
+                </div>
+            </form>
+            <div>
+                <a href='/?action=REGISTER'>Register</a>
+            </div>  
+        </div>
+
+
+    </body>
+
+</html>

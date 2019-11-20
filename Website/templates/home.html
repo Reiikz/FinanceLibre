@@ -7,20 +7,34 @@
 
     </head>
 
+
+
+    <script>
+        function setURL(url){
+            fr = document.getElementById("mainContent").src = url;
+        }
+    </script>
+
     <body>
 
         <div class='wrapper'>
 
             <header>
-                <h1 class='title'> %title% </h1>
-                <h2 class='subtitle1'> %MOTTO% </h2>
+                <cp class='title'> %title% - </cp>
+                <cp class='subtitle1'> %MOTTO% </cp>
             </header>
 
             <nav class='nav'>
-                <a class="head_button" href='?action=moove'>%text_moovement%</a>
-                <a class="head_button" href='?action=history'>%text_History%</a>
+                <a class="head_button" OnClick='setURL("?action=moove");'>%text_moovement%</a>
+                <a class="head_button" OnClick='setURL("?action=HISTORY");'>%text_History%</a>
 
             </nav>
+            
+            <div class='iframe'>
+                <iframe src='%%MAIN_IFRAME_URL%%' id='mainContent'>
+
+                </iframe>
+            </div>
 
         </div>
         

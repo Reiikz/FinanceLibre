@@ -1,8 +1,19 @@
 <?php
 
+include_once "../config/config.php";
+
 class MySQL extends mysqli {
-    function __construct($CONFIG){
-        parent::__construct($CONFIG["db_address"], $CONFIG["db_user"], $CONFIG["db_password"], $CONFIG["db_database"], $CONFIG["db_port"]);
+    
+    private $prefix;
+
+    function __construct(){
+        parent::__construct(CONFIG::$db_address, CONFIG::$db_user, CONFIG::$db_password, CONFIG::$db_database, CONFIG::$db_port);
+        $this->prefix = CONFIG::$db_prefix;
+    }
+
+    function query($in){
+        $in = preg_replace("/fcl_/", $this->prefix, $in, 1);
+        return parent::query($in);
     }
 
     function parseSqlScript($file) {
