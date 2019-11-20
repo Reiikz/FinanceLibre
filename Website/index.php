@@ -55,19 +55,27 @@ if(isset($_GET["action"])){
         exit(0);
     }
 
-    //---------------------------- catch action=login
+    //---------------------------- catch action=LOGIN
     if($_GET["action"] == "LOGIN"){
         $template = file_get_contents("templates/login.html");
-        $template = $lc->loadText("login", $template);
         $username="";
         $error="";
         if(isset($_GET["username"])) $username = $_GET["username"];
         if(isset($_GET["error"])) $error = $_GET["error"];
         $template = str_replace("%%USERNAME%%", $username, $template);
         $template = str_replace("%%ERROR%%", $error, $template);
+        $template = $lc->loadText("login", $template);
         echo $template;
         unset($username);
-        unset($eror);
+        unset($error);
+        exit(0);
+    }
+
+    //---------------------------- catch action=LOGOUT
+    if($_GET["action"] == "LOGOUT"){
+        unset($_SESSION["username"]);
+        session_destroy();
+        header("Location: /");
         exit(0);
     }
 }

@@ -29,6 +29,8 @@ header {
 }
 
 .head_button {
+    cursor: pointer;
+    text-decoration: none;
     grid-row:1;
     color: black;
     padding: 16px 32px;

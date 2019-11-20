@@ -1,11 +1,27 @@
 <?php
 
-include_once "SQL/MySQL.php";
-include_once "../config/config.php";
+include_once $_SERVER["DOCUMENT_ROOT"] . "/lib/SQL/MySQL.php";
+include_once $_SERVER["DOCUMENT_ROOT"] . "/config/config.php";
 
 
 class User extends MySQL{
 
+
+    public function loadByUsername($us){
+        $us_ = $this->real_escape_string($us);
+        $q = "SELECT * FROM fcl_user WHERE `username` = '$us_'";
+        $result = $this->query($q);
+        if($row = $result->fetch_array(MYSQLI_ASSOC)){
+            $this->username = $row["username"];
+            $this->password = $row["password"];
+            $this->name = $row["name"];
+            $this->locale = $row["locale"];
+            $this->id = $row["id"];
+            return 1;
+        }else{
+            return 0;
+        }
+    }
 
     public function save(){
         if($this->usernameExists($username)){
@@ -16,7 +32,7 @@ class User extends MySQL{
             $q ="UPDATE fcl_user SET `username`='$username_', `password`='$password_', `name`='$name_', `locale`='$locale_';";        
             return $this->query($q);
         }else{
-            throw new Exception("%%Message_username_doesnt_exist_at_save%%");
+            return -1;
         }
     }
 
@@ -32,7 +48,7 @@ class User extends MySQL{
 
     public function saveNew(){
         if($this->usernameExists($username)){
-            throw new Exception("%%Message_username_already_exist_at_new%%");
+            return -1;
         }else{
             $name_ = $this->real_escape_string($this->name);
             $locale_ = $this->real_escape_string($this->locale);
