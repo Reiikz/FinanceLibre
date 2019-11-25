@@ -31,7 +31,8 @@ if(isset($_POST["login"])){
     $_SESSION["username"] = $user->username;
     $_SESSION["id"] = $user->id;
     $_SESSION["locale"] = $user->locale;
-
+    
+    $user->close();
     header("Location: /");
     exit(0);
 

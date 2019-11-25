@@ -1,0 +1,36 @@
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <link rel='stylesheet' type='text/css' href='/resources/css/newaccount.css'/>
+        <title>Finance Libre - %text_new_account%</title>
+
+    </head>
+
+    <body>
+
+        <div class="wrapper">
+
+            <form action='/actions/accounts/new.php' method='POST'>
+
+                <input type='text' placeholder="%text_account_name%" name='account_name'/>
+
+                <input type='text' placeholder="%text_currency_name%" name='currency_name'/>
+
+                <select name='type'>
+                    <option value='savings'>%text_savings_account%</option>
+                    <option value='alien'>%text_alien_account%</option>
+                    <option value='main'>%text_main_account%</option>
+                </select>
+
+                <textarea name='account_description' placeholder='%text_account_description%' style="height: 2em;"></textarea>
+
+                <input type='submit' value='%save%' name='save'/>
+
+            </form>
+
+        </div>
+
+    </body>
+
+</html>

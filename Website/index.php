@@ -1,9 +1,5 @@
 <?php
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 //includes
 include "lib/locale/LocaleLoader.php";
 
@@ -76,6 +72,30 @@ if(isset($_GET["action"])){
         unset($_SESSION["username"]);
         session_destroy();
         header("Location: /");
+        exit(0);
+    }
+
+    //---------------------------- catch action=TRANSACTION
+    if($_GET["action"] == "TRANSACTION"){
+        $temp = file_get_contents($_SERVER["DOCUMENT_ROOT"] . "/templates/transaction.html");
+        $temp = $lc->loadText("transaction", $temp);
+        echo $temp;
+        exit(0);
+    }
+
+    //---------------------------- catch action=NEWACCOUNT
+    if($_GET["action"] == "NEWACCOUNT"){
+        $temp = file_get_contents($_SERVER["DOCUMENT_ROOT"] . "/templates/newaccount.html");
+        $temp = $lc->loadText("newaccount", $temp);
+        echo $temp;
+        exit(0);
+    }
+
+    //---------------------------- catch action=ACCOUNTS
+    if($_GET["action"] == "ACCOUNTS"){
+        $temp = file_get_contents($_SERVER["DOCUMENT_ROOT"] . "/templates/accounts.html");
+        $temp = $lc->loadText("accounts", $temp);
+        echo $temp;
         exit(0);
     }
 }

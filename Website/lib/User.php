@@ -59,11 +59,7 @@ class User extends MySQL{
         }
         
     }
-
-    public function close(){
-        $conn->close()();
-    }
-
+    
     public function verify($in){
         return password_verify($in, $this->password);
     }
