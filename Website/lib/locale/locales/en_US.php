@@ -38,6 +38,12 @@ class Lang {
 
         //wallets
         "%text_new_account%"    => "New Account",
+        "%text_edit%"           => "Edit",
+        "%text_delete%"         => "Delete",
+        "%text_balance%"        => "Balance",
+        "%text_wallets%"        => "Wallets",
+        "%text_currency_type%"  => "Currency type",
+
     );
 
     public $keys = array(
@@ -87,14 +93,19 @@ class Lang {
         ),
 
         "accounts" => array(
-            0 => "%text_account_name%",
-            1 => "%text_currency_name%",
-            2 => "%text_new_account%",
-            3 => "%text_savings_account%",
-            4 => "%text_alien_account%",
-            5 => "%text_main_account%",
-            6 => "%text_account_description%",
-            7 => "%save%",
+            0  => "%text_account_name%",
+            1  => "%text_currency_name%",
+            2  => "%text_new_account%",
+            3  => "%text_savings_account%",
+            4  => "%text_alien_account%",
+            5  => "%text_main_account%",
+            6  => "%text_account_description%",
+            7  => "%save%",
+            8  => "%text_edit%",
+            9  => "%text_delete%",
+            10 => "%text_balance%",
+            11 => "%text_account_description%",
+            12 => "%text_wallets%",
         ),
     );
 }

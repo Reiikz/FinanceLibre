@@ -13,11 +13,12 @@ class MySQL extends mysqli {
 
     function query($in){
         $in = $this->filter($in);
+        //echo $in;
         return parent::query($in);
     }
 
     private function filter ($in){
-        $s1;
+        /*$s1;
         $s2;
         $t = "";
         $s = false;
@@ -56,12 +57,12 @@ class MySQL extends mysqli {
         echo "<br/><br/><br/>";
         var_dump($s2);
         echo "<br/><br/><br/>";*/
-        for($i = 0; $i < sizeof($s1); $i++){
+        /*for($i = 0; $i < sizeof($s1); $i++){
             $s1[$i] = preg_replace("/fcl_/", $this->prefix, $s1[$i]);
             $out .= $s1[$i] . $s2[$i];
-        }
+        }*/
         //echo $out;
-        return $out;
+        return preg_replace("/fcl_/", $this->prefix, $in);
     }
 
     function parseSqlScript($file) {

@@ -1,11 +1,12 @@
 <?php
 
 //includes
-include "lib/locale/LocaleLoader.php";
+include_once $_SERVER["DOCUMENT_ROOT"] . "/lib/locale/LocaleLoader.php";
+include_once $_SERVER["DOCUMENT_ROOT"] . "/lib/Account.php";
 
 
 //--------------------------- check server state ------------------------------------
-include "./config/config.php";
+include_once $_SERVER["DOCUMENT_ROOT"] . "/config/config.php";
 
 if (!CONFIG::$installed)
 {
@@ -94,6 +95,9 @@ if(isset($_GET["action"])){
     //---------------------------- catch action=ACCOUNTS
     if($_GET["action"] == "ACCOUNTS"){
         $temp = file_get_contents($_SERVER["DOCUMENT_ROOT"] . "/templates/accounts.html");
+        $ac = new Account();
+        $table = $ac->getTable($_SESSION["id"]);
+        $temp = str_replace("%%DATA%%", $table, $temp);
         $temp = $lc->loadText("accounts", $temp);
         echo $temp;
         exit(0);
