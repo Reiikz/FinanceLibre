@@ -1,0 +1,12 @@
+---
+table_pfx: fl_
+installed: true
+dbtype: mysql
+dbaddr: localhost
+dbport: "3306"
+db: FinanceLibre
+branding: FinanceLibre
+dbpass: "1234"
+dbpfx: fl_
+dbuser: financelibre_user
+...

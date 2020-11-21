@@ -1,0 +1,136 @@
+---
+###### user
+
+tables:
+- type: table
+  tbname: user
+  primary:
+  - username
+  fields:
+    username:
+      type: varchar(50)
+      nn: true
+      ai: false
+    password:
+      type: varchar(150)
+      nn: true
+      ai: false
+
+###### currency
+
+- type: table
+  tbname: currency
+  primary:
+  - short_name
+  fields:
+    short_name:
+      type: varchar(3)
+      nn: true
+      ai: false
+    long_name:
+      type: varchar(100)
+      nn: false
+      ai: false
+    american_dollar_value:
+      type: double
+      nn: false
+      ai: false
+
+###### account
+
+- type: table
+  tbname: account
+  primary:
+  - id
+  fields:
+    id:
+      type: int
+      nn: true
+      ai: true
+    name:
+     type: varchar(45)
+     nn: true
+     ai: false
+    balance:
+      type: double
+      nn: false
+      ai: false
+    currency:
+     type: varchar(3)
+     nn: true
+     ai: false
+    type:
+      type: varchar(45)
+      nn: true
+      ai: false
+  foreign:
+    currency:
+      table: currency
+      references: short_name
+      update: cascade
+      delete: no action
+
+###### user_has_account
+
+- type: table
+  tbname: user_has_account
+  fields:
+    user_username:
+      type: varchar(50)
+      nn: true
+      ai: false
+    account_id:
+      type: int
+      nn: true
+      ai: false
+  foreign:
+    user_username:
+      table: user
+      references: username
+      update: cascade
+      delete: cascade
+    account_id:
+      table: account
+      references: id
+      update: cascade
+      delete: cascade
+
+###### transaction
+
+- type: table
+  tbname: transaction
+  primary:
+  - id
+  fields:
+    id:
+      type: int
+      nn: true
+      ai: true
+    date:
+      type: datetime
+      nn: true
+      ai: false
+    note:
+      type: varchar(200)
+      nn: false
+      ai: false
+    from:
+      type: int
+      nn: true
+      ai: false
+    to:
+      type: int
+      nn: true
+      ai: false
+  foreign:
+    from:
+      table: account
+      references: id
+      update: cascade
+      delete: no action
+    to:
+      table: account
+      references: id
+      update: cascade
+      delete: no action
+...
